@@ -1,8 +1,8 @@
 import unittest
 from urllib.parse import urlparse
 import time
-from .scheduler import *
-from .page_fetcher import *
+from crawler.scheduler import *
+from crawler.page_fetcher import *
 
 class PageFetcherTest(unittest.TestCase):
     def setUp(self):

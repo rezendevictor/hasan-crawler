@@ -1,8 +1,8 @@
 import unittest
 from urllib.parse import urlparse
 import time
-from .domain import *
-from .scheduler import *
+from datetime import datetime, timedelta
+from code import Domain, Scheduler
 
 class DomainTest(unittest.TestCase):
 
@@ -16,9 +16,10 @@ class DomainTest(unittest.TestCase):
         print("aguardando 10 segundos...")
         time.sleep(10)
         self.assertTrue(domain.is_accessible(),f"Após a espera do tempo limite entre requisições, o servidor deveria voltar a ficar acessível")
+
 class SchedulerTest(unittest.TestCase):
     def setUp(self):
-        arr_urls_seeds = []
+        arr_urls_seeds = ['www.helloWorld.com', 'www.estouaqui.com']
         self.scheduler = Scheduler(str_usr_agent="xxbot",
                                 int_page_limit=10,
                                 int_depth_limit=3,
@@ -97,8 +98,6 @@ class SchedulerTest(unittest.TestCase):
         #verifica se foi usado o mesmo robot
         self.scheduler.can_fetch_page(obj_url_not_allowed)
         self.assertTrue(obj_robot_not_allowed==self.scheduler.dic_robots_per_domain[obj_url_not_allowed.netloc], "Na segunda requisição de um mesmo dominio, você não pode criar um novo objeto RobotFileParser")
-
-
 
 
         self.assertTrue(bol_allowed,f"O mesmo robots.txt não pode ser requisitado duas vezes.")
