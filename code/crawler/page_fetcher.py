@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from threading import Thread
 import requests
 from urllib.parse import urlparse,urljoin
+from io import BytesIO
 
 class PageFetcher(Thread):
     def __init__(self, obj_scheduler):
@@ -16,8 +17,12 @@ class PageFetcher(Thread):
 
             obj_url: Instancia da classe ParseResult com a URL a ser requisitada.
         """
-        response = None
-
+        user_agent = {'user-agent': 'coletor-grupo-4'} 
+        response = requests.get(obj_url,headers = user_agent)
+        if response.status_code == 200 and "text/html" in response.headers["content-type"]:
+            return BytesIO(response.content)
+        else: 
+            response = None
 
         return response.content
 
@@ -31,6 +36,7 @@ class PageFetcher(Thread):
             int_new_depth = None
 
             yield obj_new_url,int_new_depth
+
 
     def crawl_new_url(self):
         """

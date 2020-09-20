@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 class Domain():
 
-	def __init__(self,nam_domain: str,int_time_limit_between_requests: int):
+	def __init__(self,nam_domain : str,int_time_limit_between_requests : int):
 		''' 
 			Classe para definição dos dominios de acessibilidade das URL
 			:parram - nam_domain : String com o nome do dominio (URL sem path)
